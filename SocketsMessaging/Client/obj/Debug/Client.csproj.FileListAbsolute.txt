@@ -5,3 +5,10 @@ C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\ConsoleApp1\Client\ob
 C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\ConsoleApp1\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
 C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\ConsoleApp1\Client\obj\Debug\Client.exe
 C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\ConsoleApp1\Client\obj\Debug\Client.pdb
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Client\bin\Debug\Client.exe.config
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Client\bin\Debug\Client.exe
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Client\bin\Debug\Client.pdb
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Client\obj\Debug\Client.exe
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Client\obj\Debug\Client.pdb

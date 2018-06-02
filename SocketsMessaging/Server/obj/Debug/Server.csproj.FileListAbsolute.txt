@@ -5,3 +5,10 @@ C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\ConsoleApp1\ConsoleAp
 C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\ConsoleApp1\ConsoleApp1\obj\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\ConsoleApp1\ConsoleApp1\obj\Debug\ConsoleApp1.exe
 C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\ConsoleApp1\ConsoleApp1\obj\Debug\ConsoleApp1.pdb
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Server\bin\Debug\ConsoleApp1.exe.config
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Server\bin\Debug\ConsoleApp1.exe
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Server\bin\Debug\ConsoleApp1.pdb
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Server\obj\Debug\Server.csprojResolveAssemblyReference.cache
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Server\obj\Debug\ConsoleApp1.exe
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\Server\obj\Debug\ConsoleApp1.pdb

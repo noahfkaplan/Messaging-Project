@@ -16,7 +16,6 @@ namespace Client
             client.Connect("127.0.0.1",6556);
             while (true)
             {
-                Console.Write("Type your message: ");
                 string message = Console.ReadLine();
                 client.Send(message);
             }

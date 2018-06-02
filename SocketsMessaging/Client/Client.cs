@@ -45,32 +45,31 @@ namespace Client
             _socket.EndConnect(result);
             connectDone.Set();
             _buffer = new byte[1024];
-            _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, null);
+            _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
             
         }
 
         private void ReceiveCallback(IAsyncResult result)
         {
             int packetSize = _socket.EndReceive(result);
-            byte[] packet = new byte[packetSize];
-            packet = _buffer;
+            byte[] packet = _buffer.ToArray();
 
             //handle packet
-            Console.WriteLine("Received Message: " + Regex.Replace(System.Text.Encoding.Default.GetString(packet), @"\s+", ""));
+            Regex rgx = new Regex(@"[\0]");
+            string temp = rgx.Replace(System.Text.Encoding.UTF8.GetString(packet),"");
+            Console.WriteLine("Received Message: " + temp);
             _buffer = new byte[1024];
-            _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, ReceiveCallback, null);
+            _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
         }
 
         public void Send(string message)
         {
             byte[] data = Encoding.ASCII.GetBytes(message);
-            _buffer = data;
-            _socket.BeginSend(_buffer, 0, _buffer.Length,0 , new AsyncCallback(SendCallback), null);
+            _socket.BeginSend(data, 0, data.Length,0 , new AsyncCallback(SendCallback), null);
         }
         public void SendCallback(IAsyncResult result)
         {
             _socket.EndSend(result);
-            _buffer = new byte[1024];
             sendDone.Set();
         }
     }

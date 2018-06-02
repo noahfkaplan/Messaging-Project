@@ -52,7 +52,7 @@ namespace Server
             {
                 //_user1.userSocket now represents the connection between the server and client 1
                 _user1.userSocket = _socket.EndAccept(result);
-                _user1.userSocket.BeginReceive(_user1.buffer, 0, UserConnection.BufferSize, SocketFlags.None, ReceiveCallback, new State(1));
+                _user1.userSocket.BeginReceive(_user1.buffer, 0, UserConnection.BufferSize, SocketFlags.None, new AsyncCallback(ReceiveCallback), new State(1));
                 //accept new connections
                 Accept();
             }
@@ -60,7 +60,7 @@ namespace Server
             {
                 //_user2.userSocket now represents the connection between the server and client 2
                 _user2.userSocket = _socket.EndAccept(result);
-                _user2.userSocket.BeginReceive(_user2.buffer, 0, UserConnection.BufferSize, SocketFlags.None, ReceiveCallback, new State(2));
+                _user2.userSocket.BeginReceive(_user2.buffer, 0, UserConnection.BufferSize, SocketFlags.None, new AsyncCallback(ReceiveCallback), new State(2));
             }
             
         }
@@ -70,27 +70,25 @@ namespace Server
             if (temp.clientID == 1)
             {
                 _user1.userSocket.EndReceive(result);
-                byte[] packet = new byte[UserConnection.BufferSize];
-                packet = _user1.buffer.ToArray();
+                byte[] packet = _user1.buffer.ToArray();
+                _user1.buffer = new byte[UserConnection.BufferSize];
                 //send the values that were in _user1.buffer to user 2 via the _user2.userSocket if user2 is connected
                 if (_user2.userSocket != null)
                 {
                     Console.WriteLine("Sending message from user 1 to user 2");
                     _user2.userSocket.BeginSend(packet, 0, packet.Length, 0, new AsyncCallback(SendCallback), new State(2));
                 }
-                _user1.buffer = new byte[1024];
                 _user1.userSocket.BeginReceive(_user1.buffer, 0, _user1.buffer.Length, SocketFlags.None, ReceiveCallback, new State(1));
             }
             if (temp.clientID == 2)
             {
                 _user2.userSocket.EndReceive(result);
-                byte[] packet = new byte[UserConnection.BufferSize];
-                packet = _user2.buffer.ToArray();
+                byte[] packet = _user2.buffer.ToArray();
+                _user2.buffer = new byte[UserConnection.BufferSize];
                 //send the values that were in _user1.buffer to user 2 via the _user2.userSocket
                 Console.WriteLine("Sending message from client 2 to client 1");
                 _user1.userSocket.BeginSend(packet, 0, packet.Length, 0, new AsyncCallback(SendCallback), new State(1));
-                _user2.buffer = new byte[1024];
-                _user2.userSocket.BeginReceive(_user1.buffer, 0, _user1.buffer.Length, SocketFlags.None, ReceiveCallback, new State(2));
+                _user2.userSocket.BeginReceive(_user2.buffer, 0, _user2.buffer.Length, SocketFlags.None, ReceiveCallback, new State(2));
             }
 
         }
