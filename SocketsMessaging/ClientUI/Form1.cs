@@ -27,15 +27,14 @@ namespace ClientUI
 
         private void SendButton_Click(object sender, EventArgs e)
         {
-            connection.SendMessage(textBox2.Text);
-            
-            AppendText(textBox1, Color.Red, connection.myUsername + ": ");
-            AppendText(textBox1, Color.Black, textBox2.Text + "\n");
-            textBox2.Text = "";
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
+            if (textBox2.Text != "" && textBox2.Text != null)
+            {
+                connection.SendMessage(textBox2.Text);
+
+                AppendText(textBox1, Color.Red, connection.myUsername + ": ");
+                AppendText(textBox1, Color.Black, textBox2.Text + "\n");
+                textBox2.Text = "";
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -62,12 +61,10 @@ namespace ClientUI
             int start = box.TextLength;
             box.AppendText(text);
             int end = box.TextLength;
-
-            // Textbox may transform chars, so (end-start) != text.Length
+            
             box.Select(start, end - start);
             {
                 box.SelectionColor = color;
-                // could set box.SelectionBackColor, box.SelectionFont too.
             }
             box.SelectionLength = 0; // clear
         }

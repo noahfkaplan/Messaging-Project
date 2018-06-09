@@ -9,11 +9,15 @@ namespace Server
 {
     public class UserConnection
     {
-
+        public UserConnection(int identifier, byte[] buf)
+        {
+            buffer = buf;
+            id = identifier;
+        }
         // Size of receive buffer.  
         public const int BufferSize = 1024;
         // Receive buffer.  
-        public byte[] buffer = new byte[BufferSize];
+        public byte[] buffer;
         // Client  socket.  
         public Socket userSocket;
         // Client Username

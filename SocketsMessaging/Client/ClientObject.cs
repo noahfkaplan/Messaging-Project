@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Configuration;
 
 namespace Client
 {
@@ -21,30 +22,21 @@ namespace Client
 
         public ClientObject()
         {
-            IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = ipHostInfo.AddressList[0];
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             messageBacklog = new List<string>();
         }
-
-        // ManualResetEvent instances signal completion.  
-        private static ManualResetEvent connectDone =
-            new ManualResetEvent(false);
-        private static ManualResetEvent sendDone =
-            new ManualResetEvent(false);
-        private static ManualResetEvent receiveDone =
-            new ManualResetEvent(false);
-
-        public void Connect(string ipAddress, int port)
+        
+        public void Connect()
         {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ipAddress), port);
+            IPAddress ipAddress = IPAddress.Parse(ConfigurationManager.AppSettings["IPAddress"]);
+            int portNumber = int.Parse(ConfigurationManager.AppSettings["PortNumber"]);
+            IPEndPoint endPoint = new IPEndPoint(ipAddress, portNumber);
             _socket.BeginConnect(endPoint,ConnectCallback,null);
         }
 
         private void ConnectCallback(IAsyncResult result)
         {
             _socket.EndConnect(result);
-            connectDone.Set();
             _buffer = new byte[1024];
             _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
             
@@ -72,7 +64,6 @@ namespace Client
         public void SendCallback(IAsyncResult result)
         {
             _socket.EndSend(result);
-            sendDone.Set();
         }
     }
 }

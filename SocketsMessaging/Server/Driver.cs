@@ -12,7 +12,7 @@ namespace Server
         public static void Main()
         {
             Server server = new Server();
-            server.Bind(6556);
+            server.Bind();
             server.Listen(50);
             server.Accept();
 

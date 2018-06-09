@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Text;
+using System.Configuration;
 
 namespace Server
 {
@@ -17,18 +18,15 @@ namespace Server
         {
             //IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             //IPAddress ipAddress = ipHostInfo.AddressList[0];
-            _user1 = new UserConnection();
-            _user1.id = 1;
-            _user1.buffer = new byte[1024];
-            _user2 = new UserConnection();
-            _user2.id = 2;
-            _user2.buffer = new byte[1024];
+            _user1 = new UserConnection(1, new byte[UserConnection.BufferSize]);
+            _user2 = new UserConnection(2, new byte[UserConnection.BufferSize]);
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
-        public void Bind(int portNumber)
+        public void Bind()
         {
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-            IPAddress ipAddress = IPAddress.Parse("127.0.0.1");//ipHostInfo.AddressList[0];
+            IPAddress ipAddress = IPAddress.Parse(ConfigurationManager.AppSettings["IPAddress"]);//ipHostInfo.AddressList[0];
+            int portNumber = int.Parse(ConfigurationManager.AppSettings["PortNumber"]);
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, portNumber);
             _socket.Bind(localEndPoint);
         }

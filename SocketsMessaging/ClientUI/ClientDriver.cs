@@ -15,7 +15,7 @@ namespace ClientUI
         {
             myUsername = username;
             client = new ClientObject();
-            client.Connect("127.0.0.1", 6556);
+            client.Connect();
             client.Send(myUsername);
         }
         public void SendMessage(string message)
