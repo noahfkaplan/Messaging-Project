@@ -8,16 +8,17 @@ namespace Client
 {
     class Driver
     {
-        private static Client client = new Client();
+        private static ClientObject client = new ClientObject();
         public static void Main()
         {
-            Console.Write("Enter a user name:");
-            Console.ReadLine();
-            client.Connect("127.0.0.1",6556);
+        //    client.Connect("127.0.0.1",6556);
+        //    Console.Write("Enter a user name:");
+        //    client.Send(Console.ReadLine());
             while (true)
             {
-                string message = Console.ReadLine();
-                client.Send(message);
+                //string message = Console.ReadLine();
+                //client.Send(message);
+                Console.ReadLine();
             }
         }
     }

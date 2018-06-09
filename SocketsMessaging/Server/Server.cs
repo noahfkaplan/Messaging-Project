@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Net.Sockets;
 using System.Net;
+using System.Text.RegularExpressions;
+using System.Text;
 
 namespace Server
 {
@@ -61,6 +63,13 @@ namespace Server
                 //_user2.userSocket now represents the connection between the server and client 2
                 _user2.userSocket = _socket.EndAccept(result);
                 _user2.userSocket.BeginReceive(_user2.buffer, 0, UserConnection.BufferSize, SocketFlags.None, new AsyncCallback(ReceiveCallback), new State(2));
+
+                //sending both users the other user's username
+                while (_user2.username == null || _user1.username == null) { } //bad code
+                byte[] packet = Encoding.ASCII.GetBytes(_user1.username);
+                _user2.userSocket.BeginSend(packet, 0, packet.Length, 0, new AsyncCallback(SendCallback), new State(2));
+                packet = Encoding.ASCII.GetBytes(_user2.username);
+                _user1.userSocket.BeginSend(packet, 0, packet.Length, 0, new AsyncCallback(SendCallback), new State(1));
             }
             
         }
@@ -72,10 +81,16 @@ namespace Server
                 _user1.userSocket.EndReceive(result);
                 byte[] packet = _user1.buffer.ToArray();
                 _user1.buffer = new byte[UserConnection.BufferSize];
-                //send the values that were in _user1.buffer to user 2 via the _user2.userSocket if user2 is connected
-                if (_user2.userSocket != null)
+                if(_user1.username == null)
                 {
-                    Console.WriteLine("Sending message from user 1 to user 2");
+                    //handle packet
+                    Regex rgx = new Regex(@"[\0]");
+                    _user1.username = rgx.Replace(System.Text.Encoding.UTF8.GetString(packet), "");
+                }
+                //send the values that were in _user1.buffer to user 2 via the _user2.userSocket if user2 is connected
+                else if (_user2.userSocket != null)
+                {
+                    Console.WriteLine("Sending message from {0} to {1}",_user1.username,_user2.username);
                     _user2.userSocket.BeginSend(packet, 0, packet.Length, 0, new AsyncCallback(SendCallback), new State(2));
                 }
                 _user1.userSocket.BeginReceive(_user1.buffer, 0, _user1.buffer.Length, SocketFlags.None, ReceiveCallback, new State(1));
@@ -85,9 +100,18 @@ namespace Server
                 _user2.userSocket.EndReceive(result);
                 byte[] packet = _user2.buffer.ToArray();
                 _user2.buffer = new byte[UserConnection.BufferSize];
-                //send the values that were in _user1.buffer to user 2 via the _user2.userSocket
-                Console.WriteLine("Sending message from client 2 to client 1");
-                _user1.userSocket.BeginSend(packet, 0, packet.Length, 0, new AsyncCallback(SendCallback), new State(1));
+                if (_user2.username == null)
+                {
+                    //handle packet
+                    Regex rgx = new Regex(@"[\0]");
+                    _user2.username = rgx.Replace(System.Text.Encoding.UTF8.GetString(packet), "");
+                }
+                else
+                {
+                    //send the values that were in _user1.buffer to user 2 via the _user2.userSocket
+                    Console.WriteLine("Sending message from {0} to {1}",_user2.username, _user1.username);
+                    _user1.userSocket.BeginSend(packet, 0, packet.Length, 0, new AsyncCallback(SendCallback), new State(1));
+                }
                 _user2.userSocket.BeginReceive(_user2.buffer, 0, _user2.buffer.Length, SocketFlags.None, ReceiveCallback, new State(2));
             }
 

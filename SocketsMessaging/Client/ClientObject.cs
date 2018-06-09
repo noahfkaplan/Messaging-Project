@@ -11,18 +11,20 @@ using System.Text.RegularExpressions;
 
 namespace Client
 {
-    public class Client
+    public class ClientObject
     {
         // State object for reading client data asynchronously  
         
         private byte[] _buffer;
         private Socket _socket;
+        public List<string> messageBacklog;
 
-        public Client()
+        public ClientObject()
         {
             IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            messageBacklog = new List<string>();
         }
 
         // ManualResetEvent instances signal completion.  
@@ -41,7 +43,6 @@ namespace Client
 
         private void ConnectCallback(IAsyncResult result)
         {
-            Console.WriteLine("Connected to the Server");
             _socket.EndConnect(result);
             connectDone.Set();
             _buffer = new byte[1024];
@@ -57,7 +58,8 @@ namespace Client
             //handle packet
             Regex rgx = new Regex(@"[\0]");
             string temp = rgx.Replace(System.Text.Encoding.UTF8.GetString(packet),"");
-            Console.WriteLine("Received Message: " + temp);
+            //Console.WriteLine("Received Message: " + temp);
+            messageBacklog.Add(temp);
             _buffer = new byte[1024];
             _socket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.None, new AsyncCallback(ReceiveCallback), null);
         }

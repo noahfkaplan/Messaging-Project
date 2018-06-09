@@ -1,0 +1,14 @@
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\bin\Debug\ClientUI.exe.config
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\bin\Debug\ClientUI.exe
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\bin\Debug\ClientUI.pdb
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\obj\Debug\ClientUI.csprojResolveAssemblyReference.cache
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\obj\Debug\ClientUI.Properties.Resources.resources
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\obj\Debug\ClientUI.csproj.GenerateResource.Cache
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\obj\Debug\ClientUI.csproj.CoreCompileInputs.cache
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\obj\Debug\ClientUI.exe
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\obj\Debug\ClientUI.pdb
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\obj\Debug\ClientUI.Form1.resources
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\bin\Debug\Client.exe
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\bin\Debug\Client.pdb
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\bin\Debug\Client.exe.config
+C:\Users\noahfkaplan\Documents\Visual Studio 2017\Projects\SocketsMessaging\ClientUI\obj\Debug\ClientUI.Form2.resources
