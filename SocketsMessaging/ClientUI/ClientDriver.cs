@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Client;
 
@@ -11,20 +12,37 @@ namespace ClientUI
     {
         private ClientObject client;
         public string myUsername;
+        private const string errorMessage = "Connection lost with server";
+        public bool serverConnected = true;
         public ClientDriver(string username)
         {
             myUsername = username;
             client = new ClientObject();
             client.Connect();
             client.Send(myUsername);
+
         }
         public void SendMessage(string message)
         {
-            client.Send(message);
+            if (client.serverOnline)
+            {
+                client.Send(message);
+            }
+            else
+            {
+                serverConnected = false;
+                Disconnect();
+
+            }
         }
         public List<string> Refresh()
         {
-            if(client.messageBacklog.Count > 0)
+            if (!client.serverOnline)
+            {
+                serverConnected = false;
+                Disconnect();
+            }
+            if (client.messageBacklog.Count > 0)
             {
                 return client.messageBacklog;
             }
@@ -32,6 +50,12 @@ namespace ClientUI
             {
                 return null;
             }
+        }
+        public void Disconnect()
+        {
+            
+            //Environment.Exit(0);
+
         }
     }
 }

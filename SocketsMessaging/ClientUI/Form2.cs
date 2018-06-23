@@ -24,6 +24,6 @@ namespace ClientUI
             form1.Show();
             this.Hide();
         }
-        
+
     }
 }

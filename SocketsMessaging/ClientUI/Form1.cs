@@ -39,10 +39,16 @@ namespace ClientUI
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            if (!connection.serverConnected)
+            {
+                label2.Text = "Disconnected from server";
+                label2.ForeColor = Color.Red;
+            }
             List<string> messages = connection.Refresh();
             if (otherUsername == null && messages != null)
             {
                 otherUsername = messages.First();
+                label3.Text = otherUsername;
                 messages.RemoveAt(0);
             }
             else if (messages != null)
@@ -68,5 +74,6 @@ namespace ClientUI
             }
             box.SelectionLength = 0; // clear
         }
+        
     }
 }

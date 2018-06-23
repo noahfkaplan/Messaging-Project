@@ -11,11 +11,17 @@ namespace Server
 
         public static void Main()
         {
-            Server server = new Server();
-            server.Bind();
-            server.Listen(50);
-            server.Accept();
-
+            try
+            {
+                Server server = new Server();
+                server.Bind();
+                server.Listen(50);
+                server.Accept();
+            }
+            catch
+            {
+                Console.WriteLine("Connection Lost with clients");
+            }
             while (true)
             {
                 Console.ReadLine();
